@@ -4,6 +4,7 @@ from Tkinter import *
 from tkMessageBox import *
 import sys
 
+# La fonction permet de valider ou non la phrase d'entrée.
 def afficherCode():
     mot = entree.get()
 
