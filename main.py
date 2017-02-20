@@ -8,6 +8,7 @@ import sys
 def afficherCode():
     mot = entree.get()
 
+# On analyse chaque mot de l'entrée. Si ce ne sont pas des caractères en majuscule, on alerte l'utilisateur.
     for char in mot:
 
         if ord(char) < 65 or ord(char) > 90:
