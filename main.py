@@ -5,19 +5,20 @@ from tkMessageBox import *
 import sys
 from cStringIO import StringIO
 
-ABOUT = "Programme réalisé par Florian AYMARD\nhttps://github.io/flaymard"
+ABOUT = "Programme réalisé par Florian AYMARD\nhttps://github.io/flaymard\nLangage codé créé par Romain TEZENAS"
 # La fonction permet de valider ou non la phrase d'entrée.
 def afficherCode():
     mot = entree.get()
 
-# On analyse chaque mot de l'entrée. Si ce ne sont pas des caractères en majuscule, on alerte l'utilisateur.
+# On analyse chaque mot de l'entrée. Si ce ne sont pas des caractères en majuscule ou un espace, on alerte l'utilisateur.
     for char in mot:
 
-        if ord(char) < 65 or ord(char) > 90:
+        if (ord(char) < 65 or ord(char) > 90) and ord(char) != 32:
             motBon = False
             showerror("Alerte", "Votre mot contient des caractères non adaptés.")
             return
 
+    canvasCode.delete("coding")
     drawBits(mot)
 
 def about():
@@ -26,7 +27,7 @@ def about():
 def convBin(a):
     sb = StringIO()
     for char in a[::-1]:
-        unicodeVal = ord(char)
+        unicodeVal = ord(char) - 64
         for i in range(5):
             sb.write(str(unicodeVal%2))
             unicodeVal = (unicodeVal - unicodeVal%2)/2
@@ -40,8 +41,6 @@ def initLines():
     canvasCode.pack()
 
 def drawBits(motStr):
-    canvasCode.delete()
-    initLines()
     a = convBin(motStr)
     pasY = 8
     pasX = 15
@@ -54,7 +53,7 @@ def drawBits(motStr):
     for bit in a:
 
         if bit == '1':
-            canvasCode.create_rectangle(x, y, x + 8, y + 8, fill="blue")
+            canvasCode.create_rectangle(x, y, x + 8, y + 8, fill="blue", tags="coding")
 
         y += pasY
         if i%5 == 0:
@@ -87,7 +86,6 @@ Frame3.pack(side=TOP, padx=10, pady=10)
 canvasCode = Canvas(Frame3, width=570, height=50, bg='white')
 canvasCode.pack()
 initLines()
-#Frame3.place(rely=1.0, relx=0.0, x=10, y=-10, anchor=NW)
 
 #Initialisation du champ d'entrée et du bouton de validation
 value = StringVar()
