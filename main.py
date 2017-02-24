@@ -15,7 +15,7 @@ def afficherCode():
 
         if (ord(char) < 65 or ord(char) > 90) and ord(char) != 32:
             motBon = False
-            showerror("Alerte", "Votre mot contient des caractères non adaptés.")
+            showerror("Alerte", "Votre mot contient des caractères non adaptés\nVeuillez n'utiliser que des caractères majuscules non accentués")
             return
 
     canvasCode.delete("coding")
@@ -27,10 +27,16 @@ def about():
 def convBin(a):
     sb = StringIO()
     for char in a[::-1]:
-        unicodeVal = ord(char) - 64
+        print ord(char)
+        codeVal = ord(char) - 64
         for i in range(5):
-            sb.write(str(unicodeVal%2))
-            unicodeVal = (unicodeVal - unicodeVal%2)/2
+            if ord(char) == 32:
+                temp = 27
+                sb.write(str(temp%2))
+                temp = (temp - temp%2)/2
+            else:
+                sb.write(str(codeVal%2))
+                codeVal = (codeVal - codeVal%2)/2
 
     return (sb.getvalue())[::-1]
 
